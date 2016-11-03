@@ -18,13 +18,17 @@ var LinkedList = function() {
   };
 
   list.removeHead = function() {
-    var oldHead = list.head;
+    var oldHead, oldHeadValue;
     if (list.head !== null) {
-      delete list.head;
+      oldHead = list.head;
+      // single element linkedList
+      if (list.head === list.tail) {
+        list.tail = null;
+      }  
       list.head = oldHead.next;
+      oldHeadValue = oldHead.value;
     }
-    console.log(list);
-    return oldHead.value;
+    return oldHeadValue;
   };
 
   list.contains = function(target) {
