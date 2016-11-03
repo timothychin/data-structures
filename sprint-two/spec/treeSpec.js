@@ -41,4 +41,23 @@ describe('tree', function() {
     expect(tree.contains(8)).to.equal(true);
   });
 
+  it('should test that the empty tree has no children', function() {
+    expect(tree.children.length).to.equal(0);
+  });
+
+  it('should be able to add more than two children to a treeNode', function() {
+    tree.addChild(0);
+    tree.addChild(1);
+    tree.addChild(2);
+    tree.children[0].addChild('a');
+    tree.children[0].addChild('b');
+    tree.children[2].addChild('c');
+
+    expect(tree.contains('c')).to.equal(true);
+  });
+
+  it('should return false if running .contains on an empty tree', function() {
+    expect(tree.contains(0)).to.equal(false);
+  });
+
 });

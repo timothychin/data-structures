@@ -52,4 +52,15 @@ describe('linkedList', function() {
   });
 
   // add more tests here to test the functionality of linkedList
+  it('should be empty when adding and removing a single element', function() {
+    linkedList.addToTail(0);
+    linkedList.removeHead();
+    expect(linkedList.head).to.equal(null);
+    expect(linkedList.tail).to.equal(null);
+  });
+
+  it('should not be able to remove from empty list', function() {
+    expect(linkedList.removeHead()).to.equal(undefined);
+  });
 });
+
