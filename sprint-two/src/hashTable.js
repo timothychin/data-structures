@@ -60,11 +60,11 @@ HashTable.prototype._search = function(startingNode, k) {
 HashTable.prototype.retrieve = function(k) {
   var index = getIndexBelowMaxForKey(k, this._limit);
   // doesn't account for collision cases
-  var firstNode = this._storage.get(index);
+  var firstNode = this._storage.get(index); // !!Rename firstNode to bucket
   if (firstNode === undefined) {
     return firstNode;
   }
-  found = this._search(firstNode, k);
+  found = this._search(firstNode, k); // !!Declare new variable found to account for scope
   return found.get(1);
 };
 
@@ -74,21 +74,21 @@ HashTable.prototype.remove = function(k) {
   //                   removing from the middle, removing from the end
   // starting from storage, go to the index and retrieve first node
   var foundNode;
-  var currentNode = this._storage.get(index);
+  var currentNode = this._storage.get(index); // !![0]; // !!Naming 'bucket' would be more intuitive than Node
   if (currentNode !== undefined) {
     // from the first node, check its key
-    var found = false;
+    var found = false;  // !!Clarify variable naming between methods
     foundNode = this._search(currentNode, k);
     if (foundNode !== undefined) {
       found = true;
     }
 
-    currentNode = this._storage.get(index);
+    currentNode = this._storage.get(index); // !!CurrentNode should be bucket
     while (found) {
       // no collision for k, single element needs to be removed
-      if (currentNode === foundNode) {
-        console.log(foundNode);
-        this._storage.set(index, undefined);
+      if (currentNode === foundNode) { // !!Clarify variable naming
+        this._storage.set(index // [0], undefined);
+        //this._storage.set(index, []);3 
         break;
       }
       // collisions for k
