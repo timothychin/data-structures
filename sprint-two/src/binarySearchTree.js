@@ -44,16 +44,36 @@ var bTreeMethods = {
     return found;
   },
 
-  // Pre-order Depth-First Tree Traversal
   depthFirstLog: function(cb) {
-    var recurseDepth = function(node) {
+    // Pre-order Depth-First Tree Traversal
+    var preDepth = function(node) {
       if (node !== null) {
         cb(node.value);
-        recurseDepth(node.left);
-        recurseDepth(node.right);
+        preDepth(node.left);
+        preDepth(node.right);
       }
     };
-    recurseDepth(this);
+    preDepth(this);
+
+    // In-order Depth-First Tree Traversal
+    // var inOrderDepth = function(node) {
+    //   if (node !== null) {
+    //     inOrderDepth(node.left);
+    //     cb(node.value);
+    //     inOrderDepth(node.right);
+    //   }
+    // };
+    // inOrderDepth(this);'
+
+    // Post-Order Depth-First Tree Traversal
+    // var postDepth = function(node) {
+    //   if (node !== null) {
+    //     postDepth(node.left);
+    //     postDepth(node.right);
+    //     cb(node.value);
+    //   }
+    // };
+    // postDepth(this);
   }
 };
 
