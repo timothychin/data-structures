@@ -44,6 +44,7 @@ var bTreeMethods = {
     return found;
   },
 
+  // Pre-order Depth-First Tree Traversal
   depthFirstLog: function(cb) {
     var recurseDepth = function(node) {
       if (node !== null) {
@@ -61,4 +62,9 @@ var bTreeMethods = {
 
 /*
  * Complexity: What is the time complexity of the above functions?
+
+  .insert = O(log(n))
+  .contains = O(log(n))
+  .depthFirstLog = O(n)
+
  */
