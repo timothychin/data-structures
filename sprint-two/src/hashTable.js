@@ -87,7 +87,7 @@ HashTable.prototype.remove = function(k) {
     while (found) {
       // no collision for k, single element needs to be removed
       if (currentNode === foundNode) { // !!Clarify variable naming
-        this._storage.set(index // [0], undefined);
+        this._storage.set(index, undefined); //Index[0];
         //this._storage.set(index, []);3 
         break;
       }

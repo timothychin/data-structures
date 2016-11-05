@@ -1,21 +1,21 @@
 var BinarySearchTree = function(value) {
-  var tree = Object.create(treeMethods);
-  tree.value = value;
-  tree.left = null;
-  tree.right = null;
-  return tree;
+  var bTree = Object.create(bTreeMethods);
+  bTree.value = value;
+  bTree.left = null;
+  bTree.right = null;
+  return bTree;
 };
 
-var treeMethods = {
+var bTreeMethods = {
   insert: function(value) {
-    var helper = function(node) {
+    var recurseInsert = function(node) {
       if (value < node.value) {
         // check left
         if (node.left === null) {
           node.left = BinarySearchTree(value);
         } else {
           // recurse left
-          helper(node.left);
+          recurseInsert(node.left);
         }
       } else if (value > node.value) {
         // check right
@@ -23,17 +23,36 @@ var treeMethods = {
           node.right = BinarySearchTree(value);
         } else {
           // recurse right
-          helper(node.right);
+          recurseInsert(node.right);
         }
       }      
     };
-    helper(this);
+    recurseInsert(this);
   },
   contains: function(value) {
-
+    var found = false;
+    var search = function(node) {
+      if (value === node.value) {
+        found = true;
+      } else if (node.left !== null && value < node.value) {
+        search(node.left);
+      } else if (node.right !== null && value > node.value) {
+        search(node.right);
+      }
+    };
+    search(this);
+    return found;
   },
-  depthFirstLog: function() {
 
+  depthFirstLog: function(cb) {
+    var recurseDepth = function(node) {
+      if (node !== null) {
+        cb(node.value);
+        recurseDepth(node.left);
+        recurseDepth(node.right);
+      }
+    };
+    recurseDepth(this);
   }
 };
 

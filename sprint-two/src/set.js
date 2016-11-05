@@ -28,4 +28,9 @@ setPrototype.remove = function(item) {
 
 /*
  * Complexity: What is the time complexity of the above functions?
+
+.add = Constant Time Complexity
+.contains = Linear Time Complexity
+.remove = Linear Time Complexity
+
  */
