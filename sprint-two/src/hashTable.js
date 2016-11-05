@@ -60,43 +60,39 @@ HashTable.prototype._search = function(startingNode, k) {
 HashTable.prototype.retrieve = function(k) {
   var index = getIndexBelowMaxForKey(k, this._limit);
   // doesn't account for collision cases
-  var firstNode = this._storage.get(index); // !!Rename firstNode to bucket
-  if (firstNode === undefined) {
-    return firstNode;
+  var firstBucket = this._storage.get(index);
+  if (firstBucket === undefined) {
+    return firstBucket;
   }
-  found = this._search(firstNode, k); // !!Declare new variable found to account for scope
-  return found.get(1);
+  var bucketHas = this._search(firstBucket, k); 
+  return bucketHas === undefined ? undefined : bucketHas.get(1);
 };
 
 HashTable.prototype.remove = function(k) {
   var index = getIndexBelowMaxForKey(k, this._limit);
-  // three test cases: removing a single element,
-  //                   removing from the middle, removing from the end
-  // starting from storage, go to the index and retrieve first node
   var foundNode;
-  var currentNode = this._storage.get(index); // !![0]; // !!Naming 'bucket' would be more intuitive than Node
-  if (currentNode !== undefined) {
+  var currentBucket = this._storage.get(index);
+  if (currentBucket !== undefined) {
     // from the first node, check its key
-    var found = false;  // !!Clarify variable naming between methods
-    foundNode = this._search(currentNode, k);
+    var foundRemove = false;  
+    foundNode = this._search(currentBucket, k);
     if (foundNode !== undefined) {
-      found = true;
+      foundRemove = true;
     }
 
-    currentNode = this._storage.get(index); // !!CurrentNode should be bucket
-    while (found) {
+    currentBucket = this._storage.get(index);
+    while (foundRemove) {
       // no collision for k, single element needs to be removed
-      if (currentNode === foundNode) { // !!Clarify variable naming
-        this._storage.set(index, undefined); //Index[0];
-        //this._storage.set(index, []);3 
+      if (currentBucket === foundNode) { 
+        this._storage.set(index, undefined); 
         break;
       }
       // collisions for k
-      if (currentNode.get(2) === foundNode) {
-        currentNode.set(2, foundNode.get(2));
+      if (currentBucket.get(2) === foundNode) {
+        currentBucket.set(2, foundNode.get(2));
       }
       // advance the pointer
-      currentNode = currentNode.get(2);
+      currentBucket = currentBucket.get(2);
     }
   }
   return foundNode;
@@ -107,6 +103,11 @@ HashTable.prototype.remove = function(k) {
 
 /*
  * Complexity: What is the time complexity of the above functions?
+
+.insert = O(1) amortized
+.retrieve = O(1) amortized
+.remove = O(1) amortized 
+
  */
 
 

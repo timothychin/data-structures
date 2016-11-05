@@ -47,6 +47,41 @@ describe('hashTable', function() {
     window.getIndexBelowMaxForKey = oldHashFunction;
   });
 
+  it('should return undefined when retrieving key that doesn\'t exist', function() {
+    var oldHashFunction = window.getIndexBelowMaxForKey;
+    window.getIndexBelowMaxForKey = function() { return 0; };
+    hashTable.insert('Bob', 1);
+    expect(hashTable.retrieve('Adam')).to.equal(undefined);
+    hashTable.insert('Al', 2);
+    expect(hashTable.retrieve('Tim')).to.equal(undefined);
+    window.getIndexBelowMaxForKey = oldHashFunction;
+  });
+
+  it('should remove from any point of the LinkedList', function() {
+    hashTable.insert('Bob', 1);
+    hashTable.insert('Tim', 2);
+    hashTable.insert('Buck', 3);
+
+    var removed = hashTable.remove('Tim');
+    expect(removed.get(0)).to.equal('Tim');
+    expect(removed.get(1)).to.equal(2);
+    expect(hashTable.retrieve('Tim')).to.equal(undefined);
+
+    removed = hashTable.remove('Buck');
+    expect(removed.get(0)).to.equal('Buck');
+    expect(removed.get(1)).to.equal(3);
+    expect(hashTable.retrieve('Buck')).to.equal(undefined);
+    
+    removed = hashTable.remove('Bob');
+    expect(removed.get(0)).to.equal('Bob');
+    expect(removed.get(1)).to.equal(1);
+    expect(hashTable.retrieve('Bob')).to.equal(undefined);
+  });
+
+
+
+
+
   // (Advanced! Remove the extra "x" when you want the following tests to run)
   xit ('should double in size when needed', function() {
     _.each(people, function(person) {
