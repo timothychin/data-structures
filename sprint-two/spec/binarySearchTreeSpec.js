@@ -53,10 +53,10 @@ describe('binarySearchTree', function() {
     binarySearchTree.insert(16);
     binarySearchTree.depthFirstLog(func);
     // Test for Pre-Order Depth
-    // expect(array).to.eql([5, 2, 3, 10, 7, 9, 11, 13, 12, 15, 16]);
+    expect(array).to.eql([5, 2, 3, 10, 7, 9, 11, 13, 12, 15, 16]);
     // Test for In-Order Depth
     // expect(array).to.eql([2, 3, 5, 7, 9, 10, 11, 12, 13, 15, 16]);
     // Test for Post-Order Depth
-    expect(array).to.eql([3, 2, 9, 7, 12, 16, 15, 13, 11, 10, 5]);
+    // expect(array).to.eql([3, 2, 9, 7, 12, 16, 15, 13, 11, 10, 5]);
   });
 });
